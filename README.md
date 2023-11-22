@@ -16,7 +16,7 @@ A proposta da disciplina de Programação Orientada a Objetos com Java, sob a or
 
 3. **Seleção de Horário de Exibição:** Após selecionar um filme, os usuários podem escolher um horário de exibição entre as opções disponíveis.
 
-4. **Alocação de Assentos e Seleção de Quantidade:** O programa determina a sala de cinema para o filme selecionado e solicita que o usuário informe a quantidade de ingressos normais e com desconto.
+4. **Alocação e Seleção de Quantidade:** O programa determina a sala de cinema para o filme selecionado e solicita que o usuário informe a quantidade de ingressos normais e com desconto.
 
 5. **Cálculo do Custo Total e Resumo:** O aplicativo calcula o custo total com base na quantidade de ingressos normais e com desconto, exibindo um resumo detalhado das escolhas do usuário.
 
