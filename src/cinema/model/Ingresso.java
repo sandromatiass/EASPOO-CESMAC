@@ -20,7 +20,11 @@ public class Ingresso {
     }
 
     public void setFilme(Filme filme) {
-        this.filme = filme;
+        if (!filme.isFilme3D()) {
+            this.filme = filme;
+        } else {
+            System.out.println("Ingresso comum não permite Filmes 3D.");
+        }
     }
 
     public String getHorario() {
@@ -54,5 +58,9 @@ public class Ingresso {
         BigDecimal totalMeia = precoMeia.multiply(new BigDecimal(quantidadeMeia));
 
         return totalInteira.add(totalMeia);
+    }
+
+    public void acessoLanchonete() {
+        System.out.println("Compre um ingresso vip");
     }
 }

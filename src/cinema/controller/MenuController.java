@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.Scanner;
 import cinema.model.Filme;
 import cinema.model.Ingresso;
+import cinema.model.IngressoVIP;
+import cinema.Bilheteria;
 
 public class MenuController {
     private Scanner scanner;
@@ -48,14 +50,18 @@ public class MenuController {
 
     public int selecionarFilme() {
         System.out.println("Certo, escolha um filme da lista digitando o número correspondente:");
-
         String[] filmes = {"Matrix Revolution", "Constantine", "Harry Potter e a Pedra Filosofal", "Sete Vidas"};
-
+    
         for (int i = 0; i < filmes.length; i++) {
-            System.out.println((i + 1) + ". " + filmes[i]);
+            Filme filme = Bilheteria.obterFilmePorIndice(i + 1);
+            System.out.println((i + 1) + ". " + filme.getNome());
+            System.out.println("   Diretor: " + filme.getDiretor());
+            System.out.println("   Descrição: " + filme.getDescricao());
+            System.out.println("   Gênero: " + filme.getGenero());
+            System.out.println("   Duração: " + filme.getDuracao() + " minutos");
         }
-
-        return obterEscolha(filmes.length, "Escolha o número do filme desejado: ");
+    
+        return obterEscolha(4, "Escolha o número do filme desejado: ");
     }
 
     public int selecionarHorario() {
@@ -69,6 +75,14 @@ public class MenuController {
         return obterEscolha(horarios.length, "Escolha o número do horário desejado: ");
     }
 
+    public int selecionarTipoIngresso() {
+        System.out.println("Escolha o tipo de ingresso:");
+        System.out.println("1. Ingresso Comum");
+        System.out.println("2. Ingresso VIP");
+    
+        return obterEscolha(2, "Digite o número do tipo de ingresso desejado: ");
+    }
+
     public Ingresso comprarIngresso(Filme filme, String horario) {
         String sala = obterSalaExibicao(filme.getNome());
         System.out.println("O filme está em exibição na sala " + sala + ".");
@@ -77,6 +91,16 @@ public class MenuController {
         int quantidadeMeia = obterQuantidade("O valor da meia-entrada é de 12,00R$, informe a quantidade desejada: ");
 
         return new Ingresso(filme, horario, quantidadeInteira, quantidadeMeia);
+    }
+
+    public IngressoVIP comprarIngressoVIP(Filme filme, String horario) {
+        String sala = obterSalaExibicao(filme.getNome());
+        System.out.println("O filme está em exibição na sala " + sala + ".");
+
+        int quantidadeInteira = obterQuantidade("O valor da entrada inteira VIP é de 48,00R$, informe a quantidade desejada: ");
+        int quantidadeMeia = obterQuantidade("O valor da meia-entrada VIP é de 24,00R$, informe a quantidade desejada: ");
+
+        return new IngressoVIP(filme, horario, quantidadeInteira, quantidadeMeia);
     }
 
     public void exibirResumo(Ingresso ingresso) {
@@ -89,6 +113,10 @@ public class MenuController {
         System.out.println("Ingressos inteiros: " + ingresso.getQuantidadeInteira());
         System.out.println("Ingressos meia-entrada: " + ingresso.getQuantidadeMeia());
         System.out.println("Total a pagar: R$ " + totalPagar);
+
+        if (ingresso instanceof IngressoVIP) {
+            System.out.println("Seu ingresso é VIP, você tem acesso livre a lanchonete.");
+        }
     }
 
     public void despedida() {
